@@ -2,6 +2,7 @@ use std::cell::Cell;
 
 pub struct Rng(Cell<u64>);
 
+// https://habr.com/ru/post/533762/
 impl Rng {
     const MULTIPLIER: u64 = 0x5DEECE66D;
     const ADDEND: u64 = 0xB;
