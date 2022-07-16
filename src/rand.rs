@@ -3,7 +3,7 @@ use std::cell::Cell;
 pub struct Rng(Cell<u64>);
 
 impl Rng {
-	const MULTIPLIER: u64 = 0x5DEECE66D;
+    const MULTIPLIER: u64 = 0x5DEECE66D;
     const ADDEND: u64 = 0xB;
     const MASK: u64 = 2_u64.pow(48) - 1;
 
@@ -20,14 +20,14 @@ impl Rng {
             .wrapping_add(Self::ADDEND)
             & Self::MASK;
         self.0.set(r);
-        (r >> 48 - bits & i32::MAX as u64) as u32
+        (r >> (48 - bits) & i32::MAX as u64) as u32
     }
 
     pub fn next_bound(&self, bound: u32) -> u32 {
         let r = self.next(31);
 
-        if bound & bound - 1 == 0 {
-            return (r as u64 * bound as u64 >> 31 & u32::MAX as u64) as u32;
+        if bound & (bound - 1) == 0 {
+            return ((r as u64 * bound as u64) >> 31 & u32::MAX as u64) as u32;
         }
 
         r % bound
