@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 sha2 = "0.10.2"
 hex = "0.4.3"
+java-rand = "0.2.0"

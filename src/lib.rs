@@ -1,9 +1,11 @@
+mod shuffle;
+
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use rand::Rng;
+use java_rand::Random;
 use sha2::{Digest, Sha256};
 
-mod rand;
+use crate::shuffle::Shuffle;
 
 fn hash_code(data: impl AsRef<[u8]>) -> u64 {
     const INITIAL: u64 = 17;
@@ -23,7 +25,7 @@ fn encode_with_seed<T: AsMut<[u8]>>(mut data: T, seed: u64) -> String {
     const ENCODE_CHARS: &[u8] = b"fUi7oEd)IyZcPQlzHDnARm5thFwJKqjgrX2b8VWaOCY9pM!e3TsvkBxNu614LS0G";
 
     let data = data.as_mut();
-    let rng = Rng::with_seed(seed);
+    let mut rng = Random::new(seed);
     rng.shuffle(data);
 
     let mut result = String::new();
